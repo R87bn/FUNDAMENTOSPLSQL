@@ -112,3 +112,63 @@ undefine nombre;
 undefine localidad;
 
 SELECT * FROM DEPT;
+
+--insertar en la tabla EMP un empleaddo con dodigo 9999 asignado directamente en la variable con%type.
+--Apellido "perez" oficio "analista" y cod dept "10"
+select * from emp;
+
+
+DECLARE
+    v_numero_emp emp.emp_no%type;
+    v_apellido emp.apellido%type;
+    v_oficio emp.oficio%type;
+BEGIN
+    v_numero_emp := &numero_emp;
+    v_apellido := '&apellido';
+    v_oficio := '&oficio';
+ INSERT INTO emp (emp_no, apellido, oficio)
+    VALUES (v_numero_emp, v_apellido, v_oficio);
+END;
+
+undefine v_numero_emp;
+UNDEFINE v_apellido;
+UNDEFINE v_oficio;
+
+---INCREMENTAR EN 200 EUROS A LOS ANALISTAS DE EMP MEDIANTE BLOQUE ANÓNIMO CON UNA VARIABLE DECLARADA %TYPE
+SELECT * FROM EMP WHERE OFICIO = 'ANALISTA';
+
+DECLARE
+    incremento EMP.SALARIO%TYPE := 200;
+BEGIN
+    UPDATE EMP
+    SET SALARIO = SALARIO + incremento
+    WHERE OFICIO = 'ANALISTA';
+
+
+    DBMS_OUTPUT.PUT_LINE('Se incrementaron ' || incremento || ' euros a los ANALISTAS.');
+END;
+
+--REALIZAR UN PROGRAMA QUE DEVUELVA EL NUMERO DE CIFRAS DE UN NUMERO ENTERO INTRODUCIDO POR TECLADO MEDIANTE UNA VARIABLE DE SUSTITUCION
+
+DECLARE
+NUMAMEDIR INT;
+LONG_NUM INT;
+BEGIN 
+NUMAMEDIR := &MEDNUMERO;
+LONG_NUM := LENGTH(NUMAMEDIR);
+ dbms_output.put_line('La longitud deL número es ' || LONG_NUM);
+ END;
+
+ UNDEFINE NUMAMEDIR;
+ UNDEFINE LONG_NUM;
+
+ ----CREA BLOQUE PL QUE ACTUALICE EL SALARIO DE LOS EMPLEADOS QUE NO COBRAN COMISION EN UN 5%
+SELECT * FROM EMP where comision = 0;
+ DECLARE
+    AUMENTO int := 1.05;
+BEGIN
+    UPDATE EMP
+    SET SALARIO = SALARIO * AUMENTO
+    WHERE COMISION = 0;
+    DBMS_OUTPUT.PUT_LINE('Se incrementó un 5% el salario a los empleados sin comisión.');
+END;
