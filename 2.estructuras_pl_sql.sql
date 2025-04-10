@@ -82,4 +82,139 @@ BEGIN
     undefine 1num
     undefine 2num
 
-    --PEDIR NUM AL USUARIO Y PREGUNTAR SI ES PAR/IMPAR
+    --PEDIR NUM AL USUARIO Y PREGUNTAR SI ES PAR/IMPAR. HACEMOS LO QUE SABEMOS, PEDIMOS EL RESTO
+
+    SELECT MOD (9,2) AS RESTO FROM DUAL; 
+
+    DECLARE
+        V_NUM INT;
+    BEGIN
+    V_NUM := &num;
+        IF (MOD (V_NUM, 2) = 0) THEN
+            dbms_output.put_line ('El número es par');
+        else 
+            dbms_output.put_line ('El número es impar');
+        end if;
+        dbms_output.put_line('FIN DEL PROGRAMA');
+    end;
+
+    undefine num
+
+    --Podemos utilizar cualquier operador, tanto de comparación como relacional
+    --Pedimos una letra al usuario, si es vocal pintamos vocal, si no, consonante
+/
+    declare
+        v_letra varchar2(1);
+    BEGIN
+        v_letra := lower('&letra');
+        if (v_letra = 'a' or v_letra = 'e' or v_letra = 'i' or v_letra = 'o' or v_letra ='u') then
+            dbms_output.put_line ('vocal ' || v_letra);
+        else 
+            dbms_output.put_line ('consonante ' || v_letra);
+             end if;
+        dbms_output.put_line('FIN DEL PROGRAMA');
+    end;
+    /
+
+    undefine letra
+
+    --pedir tres numeros al usuario  y mostrar el mayor de ellos y el menor
+
+    
+/
+DECLARE
+    num1 INT;
+    num2 INT;
+    num3 INT;
+    mayor INT;
+    menor INT;
+BEGIN
+    num1 := &num1;  
+    num2 := &num2;  
+    num3 := &num3;  
+    -- Usar GREATEST para obtener el valor máximo
+    mayor := GREATEST(num1, num2, num3);
+    
+    -- Usar LEAST para obtener el valor mínimo
+    menor := LEAST(num1, num2, num3);
+
+    DBMS_OUTPUT.PUT_LINE('El número mayor es: ' || mayor);
+    DBMS_OUTPUT.PUT_LINE('El número menor es: ' || menor);
+END;
+/
+undefine num1
+undefine num2
+undefine num3
+        
+
+DECLARE
+    num1 INT := &num1;  -- Asigna un valor aquí
+    num2 INT := &num2;  -- Asigna un valor aquí
+    num3 INT := &num3;  -- Asigna un valor aquí
+    mayor INT;
+    menor INT;
+BEGIN
+    -- Usar GREATEST para obtener el valor máximo
+    mayor := GREATEST(num1, num2, num3);
+    
+    -- Usar LEAST para obtener el valor mínimo
+    menor := LEAST(num1, num2, num3);
+
+    DBMS_OUTPUT.PUT_LINE('El número mayor es: ' || mayor);
+    DBMS_OUTPUT.PUT_LINE('El número menor es: ' || menor);
+END;
+/
+undefine num1
+undefine num2
+undefine num3
+        
+--------------------MOSTRAR LOS TRES-----------
+DECLARE
+    num1 INT := &num1;  -- Asigna un valor aquí
+    num2 INT := &num2;  -- Asigna un valor aquí
+    num3 INT := &num3;  -- Asigna un valor aquí
+    mayor INT;
+    menor INT;
+    medio INT;
+BEGIN
+    -- Determinar el mayor
+    IF (num1 >= num2) AND (num1 >= num3) THEN
+        mayor := num1;
+        IF num2 >= num3 THEN
+            medio := num2;
+            menor := num3;
+        ELSE
+            medio := num3;
+            menor := num2;
+        END IF;
+    ELSIF (num2 >= num1) AND (num2 >= num3) THEN
+        mayor := num2;
+        IF num1 >= num3 THEN
+            medio := num1;
+            menor := num3;
+        ELSE
+            medio := num3;
+            menor := num1;
+        END IF;
+    ELSE
+        mayor := num3;
+        IF num1 >= num2 THEN
+            medio := num1;
+            menor := num2;
+        ELSE
+            medio := num2;
+            menor := num1;
+        END IF;
+    END IF;
+
+    DBMS_OUTPUT.PUT_LINE('El número mayor es: ' || mayor);
+    DBMS_OUTPUT.PUT_LINE('El número medio es: ' || medio);
+    DBMS_OUTPUT.PUT_LINE('El número menor es: ' || menor);
+END;
+/
+
+undefine num1
+undefine num2
+undefine num3
+/
+
