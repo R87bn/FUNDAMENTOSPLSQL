@@ -82,4 +82,4 @@ BEGIN
     undefine 1num
     undefine 2num
 
-    --------------------------
+    --PEDIR NUM AL USUARIO Y PREGUNTAR SI ES PAR/IMPAR
