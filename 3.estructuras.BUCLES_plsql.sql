@@ -188,3 +188,172 @@ BEGIN
 END;
 undefine inicial;
 undefine final;
+
+--CONJETURA DE COLLATZ:
+--TEORÍA: CUALQUIER NUM SIEMPRE LLEGARÁ A SER 1 SIGUIENDO UNA SERIE DE INSTRUCCIONES
+--SI EL NUM ES PAR, SE DIVIDE ENTRE 2
+--SI ES IMPAR, SE MÚLTIPLICA * 3 Y SUMANOS 1 ( N * 3 + 1)
+--6--> 6/2=3 3*3+1= 10, 10/2 = 5...16, 8, 4, 2, 1
+
+DECLARE
+    num INT;
+BEGIN
+    num := &numero;
+    DBMS_OUTPUT.PUT_LINE(num); -- Imprime el número inicial
+
+    LOOP
+        EXIT WHEN num = 1; -- Condición de salida
+
+        IF MOD(num, 2) = 0 THEN
+            num := num / 2;
+        ELSE
+            num := num * 3 + 1;
+        END IF;
+
+        DBMS_OUTPUT.PUT_LINE(num); -- Imprime el número después de cada operación
+    END LOOP;
+
+    DBMS_OUTPUT.PUT_LINE('Fin del programa');
+END;
+/
+undefine numero;
+---------------------------------------------
+DECLARE
+    numero int;
+BEGIN
+    numero := &valor;
+    while numero <> 1 LOOP
+        IF MOD(numero, 2) = 0 THEN
+          numero := numero / 2;
+        ELSE
+            numero := numero * 3 + 1;
+        END IF;
+    DBMS_OUTPUT.PUT_LINE(numero);
+    end loop;
+    DBMS_OUTPUT.PUT_LINE('Fin del programa');
+END;
+
+undefine valor;
+
+DECLARE
+num int;
+BEGIN
+    num := &numero;
+    DBMS_OUTPUT.PUT_LINE(num); -- Imprime el número inicial
+
+    LOOP
+
+
+        IF MOD(num, 2) = 0 THEN
+            num := num / 2;
+        ELSE
+            num := num * 3 + 1;
+        END IF;
+
+        DBMS_OUTPUT.PUT_LINE(num); -- Imprime el número después de cada operación
+        EXIT WHEN num = 1; -- Condición de salida, siempre despuéd de imprimir los num
+    END LOOP;
+
+    DBMS_OUTPUT.PUT_LINE('Fin del programa');
+END;
+
+undefine numero;
+
+-- MOSTRAR LA TABLA DE MULTIPLICAR (DEL 1 AL 10) DE UN NUM QUE PIDAMOS
+
+-- DECLARE
+--     num int;
+-- BEGIN
+--     num := &num;
+--     DBMS_OUTPUT.PUT_LINE( num ); 
+--     DBMS_OUTPUT.PUT_LINE(num * 2); 
+--     DBMS_OUTPUT.PUT_LINE(num * 3); 
+--     DBMS_OUTPUT.PUT_LINE(num * 4); 
+--     DBMS_OUTPUT.PUT_LINE(num * 5); 
+--     DBMS_OUTPUT.PUT_LINE(num * 6); 
+--     DBMS_OUTPUT.PUT_LINE(num * 7); 
+--     DBMS_OUTPUT.PUT_LINE(num * 8); 
+--     DBMS_OUTPUT.PUT_LINE(num * 9); 
+--     DBMS_OUTPUT.PUT_LINE(num * 10); 
+-- DBMS_OUTPUT.PUT_LINE('Fin del programa');
+-- END;
+
+-- undefine num;
+
+DECLARE
+    numero int;
+    operacion int;
+BEGIN
+    numero := &valor;
+    for i in 1..10 loop 
+    operacion := numero * i;
+        DBMS_OUTPUT.PUT_LINE(numero || '*' || i || '=' || operacion); 
+    end loop;
+    DBMS_OUTPUT.PUT_LINE('Fin del programa');
+end;
+undefine valor;
+
+--CREA UN PROGRAMA QUE NOS PIDA UN TEXTO, QUE LO RECORRA LETRA A LETRA 
+--MOSTRANDO CADA UNA DE LAS LETRAS DE FORMA INDIVIDUAL
+
+DECLARE
+    v_texto varchar2(50);
+    v_long int;
+    v_letra varchar2(1);
+BEGIN
+    v_texto := '&texto';
+    v_long := length(v_texto);
+    --un elemento en oracle empieza en 1
+    for i in 1..v_long loop
+    --substring
+    v_letra := substr(v_texto, i, 1);
+    DBMS_OUTPUT.PUT_LINE(v_letra);
+    end loop;
+    DBMS_OUTPUT.PUT_LINE('Fin del programa');
+END;
+
+undefine texto;
+
+--INTRODUCIR TEXTO NUMERICO, MOSTRAR LA SUMA DE DICHOS NUM EN UN MENSAJE
+
+DECLARE
+    v_texto VARCHAR2(50);
+    v_digito CHAR(1);
+    v_suma   NUMBER := 0;
+BEGIN
+    v_texto := '&texto'; -- Solicita al usuario que ingrese la cadena
+
+    FOR i IN 1 .. LENGTH(v_texto) LOOP
+        v_digito := SUBSTR(v_texto, i, 1);
+        -- Verifica que el carácter sea un dígito
+        IF v_digito BETWEEN '0' AND '9' THEN
+            v_suma := v_suma + TO_NUMBER(v_digito);
+        ELSE
+            DBMS_OUTPUT.PUT_LINE('Carácter no numérico encontrado: ' || v_digito);
+            -- Opcional: puedes decidir cómo manejar caracteres no numéricos
+        END IF;
+    END LOOP;
+
+    DBMS_OUTPUT.PUT_LINE('La suma de los dígitos es: ' || v_suma);
+END;
+/
+--------------
+DECLARE 
+    v_texto_numero VARCHAR2(50);
+    v_longitud int;
+    v_letra char(1);
+    v_suma int;
+BEGIN
+        v_suma := 0;
+        v_texto_numero := &texto;
+        v_longitud := length(v_texto_numero);
+        for i in..v_longitud loop
+            v_letra := substr(v_texto_numero, i, 1);
+            v_numero:= to_number(v_letra);
+        DBMS_OUTPUT.PUT_LINE(v_letra);
+        v_suma := v_suma + v_numero;
+        end loop;
+        DBMS_OUTPUT.PUT_LINE('La suma de' ||v_texto_numero || 'es' || v_suma);
+         DBMS_OUTPUT.PUT_LINE('Fin del programa');
+end;
+undefine texto;
