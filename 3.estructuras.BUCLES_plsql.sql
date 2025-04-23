@@ -358,3 +358,56 @@ BEGIN
          DBMS_OUTPUT.PUT_LINE('Fin del programa');
 end;
 undefine texto;
+
+--empleado arroyo, si cobra de 250.000 bajar el sueldo, si cobra menos subirlo
+
+declare 
+v_salario EMP.SALARIO%TYPE;
+v_idemp EMP.EMP_NO%TYPE;
+begin 
+    select EMP_NO, SALARIO into v_idemp, v_salario from EMP
+    where UPPER(APELLIDO)='ARROYO'; --upper para no discernir may y min
+    if 
+      v_salario > 250000 then
+      v_salario := v_salario -10003;
+    else
+    v_salario := v_salario - 10003;
+    
+    end if;
+    update EMP set SALARIO=v_salario
+    where EMP_NO=v_idemp;
+
+    DBMS_OUTPUT.PUT_LINE(
+      'Salario de Arroyo, con ID ' || v_idemp || ' actualizado a ' || v_salario
+    );
+end;
+---------------con apellido
+
+DECLARE
+
+
+    v_salario  EMP.SALARIO%TYPE;
+    v_apellido EMP.APELLIDO%TYPE := '&apellido';      -- 'ARROYO'
+BEGIN
+    -- 1) Obtener el salario actual de ARROYO
+    SELECT SALARIO INTO v_salario
+      FROM EMP
+     WHERE APELLIDO = v_apellido;
+
+    -- 2) Modificar según la condición
+    IF v_salario > 250000 THEN
+        v_salario := v_salario - 10000;
+    ELSE
+        v_salario := v_salario + 10000;
+    END IF;
+
+    -- 3) Aplicar el cambio solo a ARROYO
+    UPDATE EMP
+       SET SALARIO = v_salario
+     WHERE APELLIDO = v_apellido;
+
+    DBMS_OUTPUT.PUT_LINE(
+      'Salario de ' || v_apellido || ' actualizado a ' || v_salario
+    );
+END;
+/
