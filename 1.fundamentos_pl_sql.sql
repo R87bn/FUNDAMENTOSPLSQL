@@ -1,7 +1,6 @@
 DECLARE
     --mi comentario
-    --declaramos la variable
-    numero int;
+    --declaramos la variable--
 BEGIN
     dbms_output.put_line('Mi primer bloque anónimo');
     numero:= 4;  ------ poner := junto
