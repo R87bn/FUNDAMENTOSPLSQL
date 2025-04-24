@@ -98,3 +98,20 @@ BEGIN
     end loop;
     close cursor_dept;
 END;
+
+-----CURSOR PARA MOSTRAR EL APELLIDO, SALARIO Y OFICIO DE EMP
+
+DECLARE 
+    cursor cursor_emp is
+    select apellido, salario, oficio,
+    salario+comision as total from EMP;
+BEGIN 
+    for v_registro in cursor_emp /*inventamos una variable*/
+    LOOP
+        DBMS_OUTPUT.PUT_LINE('Apellido ' || v_registro.apellido);
+        DBMS_OUTPUT.PUT_LINE('Oficio ' || v_registro.oficio);
+        DBMS_OUTPUT.PUT_LINE('Total ' || v_registro.total);
+
+      
+    END LOOP;
+END;
