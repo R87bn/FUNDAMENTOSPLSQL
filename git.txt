@@ -6,3 +6,7 @@ buscamos la app en la carpeta (c/system(86)/vcetestingg system)
 pegamos todo y reemplazamos
 
 EXAMEN 149
+
+Excepciones:
+to many rows: devuelve mas de un registro
+no data found no encuentra datos
